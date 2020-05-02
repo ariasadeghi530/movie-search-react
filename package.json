@@ -1,0 +1,20 @@
+{
+  "name": "movie-search-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ariasadeghi530/movie-search-react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ariasadeghi530/movie-search-react/issues"
+  },
+  "homepage": "https://github.com/ariasadeghi530/movie-search-react#readme"
+}
