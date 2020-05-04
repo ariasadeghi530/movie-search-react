@@ -24,7 +24,6 @@ function App() {
     axios.get(`http://www.omdbapi.com/?apikey=trilogy&s=${movieState.search}`)
     .then(function({data}){
       if(data.Response == 'True'){
-        console.log(data);
         setMovieState({...movieState, search: '', queryMovies: data.Search});
       } else {
         setMovieState({...movieState, error: data.Error});
@@ -34,12 +33,8 @@ function App() {
   }
 
   movieState.handleDeleteMovie = (index) => {
-   
     let movies = JSON.parse(JSON.stringify(movieState.queryMovies));
-    console.log(index)
-    console.log(movies)
     movies.splice(index, 1);
-    console.log(movies)
     setMovieState({...movieState, queryMovies: movies});
   }
   

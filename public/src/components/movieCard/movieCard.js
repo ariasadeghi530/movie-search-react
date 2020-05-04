@@ -36,8 +36,8 @@ return(
     container
     spacing={3}
     >
-    {queryMovies.map((movie, index) => 
-    <Grid item s="true" key={index}>
+    {queryMovies.map((movie, ind) => 
+    <Grid item s="true">
         <Card className={classes.root}>
         
           <CardMedia
@@ -53,15 +53,13 @@ return(
              {movie.Year}
             </Typography>
           </CardContent>
-       
         <CardActions>
           <Button size="small" color="primary" href={'https://www.imdb.com/title/' + movie.imdbID} target='_blank'>
             View on IMDB
           </Button>
-          <Button size="small" color="primary" onClick={(index) => handleDeleteMovie(index)}>
-            Remove
+          <Button size="small" color="primary" onClick={() => handleDeleteMovie(ind)}>
+            Remove 
           </Button>
-        
         </CardActions>
       </Card>
       </Grid>
