@@ -6,7 +6,8 @@ const MovieContext = createContext({
     queryMovies: [],
     savedMovies: [],
     handleInputChange: () => {},
-    handleQueryMovies: () => {}
+    handleQueryMovies: () => {},
+    handleDeleteMovie: () => {}
 });
 
 export default MovieContext;

@@ -33,6 +33,15 @@ function App() {
     .catch(e => console.error(e));
   }
 
+  movieState.handleDeleteMovie = (index) => {
+   
+    let movies = JSON.parse(JSON.stringify(movieState.queryMovies));
+    console.log(index)
+    console.log(movies)
+    movies.splice(index, 1);
+    console.log(movies)
+    setMovieState({...movieState, queryMovies: movies});
+  }
   
   
   return (

@@ -2,33 +2,44 @@ import React, {useContext, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MovieContext from '../../utils/MovieContext';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+
 
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 345,
+      width: 300,
+      height: 550
     },
     media: {
-      height: 140,
+      height: 350,
     },
+    grid:{
+        margin: "2%"
+        
+    }
   });
 
 function MovieCard(){
-const {queryMovies} = useContext(MovieContext);
+const {queryMovies, handleDeleteMovie} = useContext(MovieContext);
   const classes = useStyles();
 
 return(
-    <Container>
-    {queryMovies.map(movie => 
+  
+    <Grid
+    className={classes.grid}
+    container
+    spacing={3}
+    >
+    {queryMovies.map((movie, index) => 
+    <Grid item s="true" key={index}>
         <Card className={classes.root}>
-        <CardActionArea>
+        
           <CardMedia
             className={classes.media}
             image={movie.Poster}
@@ -42,16 +53,21 @@ return(
              {movie.Year}
             </Typography>
           </CardContent>
-        </CardActionArea>
+       
         <CardActions>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" href={'https://www.imdb.com/title/' + movie.imdbID} target='_blank'>
             View on IMDB
           </Button>
+          <Button size="small" color="primary" onClick={(index) => handleDeleteMovie(index)}>
+            Remove
+          </Button>
+        
         </CardActions>
       </Card>
+      </Grid>
         )}
-    </Container>
-   
+    </Grid>
+    
 )
 }
 
