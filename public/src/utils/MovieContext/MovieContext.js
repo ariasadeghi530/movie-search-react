@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import {createContext} from 'react';
 
 const MovieContext = createContext({
     search: '',
@@ -7,7 +7,9 @@ const MovieContext = createContext({
     savedMovies: [],
     handleInputChange: () => {},
     handleQueryMovies: () => {},
-    handleDeleteMovie: () => {}
+    handleDeleteMovie: () => {},
+    handleSaveMovie: () => {},
+    handleUnSaveMovie: () => {}
 });
 
 export default MovieContext;
