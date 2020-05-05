@@ -10,9 +10,9 @@ app.use(express.json());
 
 // app.use(require('./routes'));
 
-// app.get('/*', (req, res) => {
-//   res.sendFile(join(__dirname, 'public', 'build', 'index.html'));
-// })
+app.get('/*', (req, res) => {
+  res.sendFile(join(__dirname, 'public', 'build', 'index.html'));
+})
 
 require('./config')
   .then(() => app.listen(process.env.PORT || 3001))
