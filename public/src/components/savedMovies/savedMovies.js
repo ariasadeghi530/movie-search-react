@@ -6,12 +6,16 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
       width: 300,
       height: 550,
@@ -27,22 +31,31 @@ const useStyles = makeStyles({
         margin: "2%",
         paddingLeft: 9
     },
-  
-  });
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+      },
+  }));
 
-function MovieCard(){
-const {queryMovies, handleDeleteMovie, handleSaveMovie} = useContext(MovieContext);
-  const classes = useStyles();
-
+function SavedMovies(){
+const {savedMovies, handleUnSaveMovie} = useContext(MovieContext);
+const classes = useStyles();
 return(
-  <>
-    
+  <ExpansionPanel>
+    <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography className={classes.heading}>Saved Movies ({savedMovies.length})</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
     <Grid
     className={classes.grid}
     spacing={3}
     container
     >
-    {queryMovies.map((movie, ind) => 
+    {savedMovies.map((movie, ind) => 
     <Grid item s="true" key={ind} style={{display: 'flex'}}>
         <Card className={classes.root} >
         
@@ -63,20 +76,18 @@ return(
           <Button size="small" color="primary" href={'https://www.imdb.com/title/' + movie.imdbID} target='_blank'>
             View on IMDB
           </Button>
-          <Button size="small" color="primary" onClick={() => handleDeleteMovie(ind)}>
+          <Button size="small" color="primary" onClick={() => handleUnSaveMovie(ind)}>
             Remove 
-          </Button>
-          <Button size="small" color="primary" onClick={() => handleSaveMovie(ind)}>
-            Save
           </Button>
         </CardActions>
       </Card>
       </Grid>
         )}
     </Grid>
-    </>
+    </ExpansionPanelDetails>
+    </ExpansionPanel>
 )
 }
 
 
-export default MovieCard;
+export default SavedMovies;

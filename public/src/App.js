@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 import MovieContext from './utils/MovieContext';
 import MovieCard from './components/movieCard';
+import SavedMovies from './components/savedMovies';
 import Search from './components/searchBar';
 import axios from 'axios';
+import './App.css'
 
 
 function App() {
 
   const [movieState, setMovieState] = useState({
     search: '',
+    query: '',
     error: '',
     queryMovies: [],
-    savedMovies: [] || JSON.parse(localStorage.getItem('savedMovies'))
+    savedMovies: JSON.parse(localStorage.getItem('savedMovies')) || []
   });
 
   movieState.handleInputChange = (event) => {
@@ -24,7 +27,7 @@ function App() {
     axios.get(`http://www.omdbapi.com/?apikey=trilogy&s=${movieState.search}`)
     .then(function({data}){
       if(data.Response === 'True'){
-        setMovieState({...movieState, search: '', queryMovies: data.Search});
+        setMovieState({...movieState, query: movieState.search, search: '', queryMovies: data.Search});
       } else {
         setMovieState({...movieState, error: data.Error});
       }
@@ -41,15 +44,24 @@ function App() {
   movieState.handleSaveMovie = (index) => {
     let movies = JSON.parse(JSON.stringify(movieState.queryMovies));
     let saveMovies = JSON.parse(JSON.stringify(movieState.savedMovies));
-    saveMovies.push(movies[index]);
+    console.log(movies[index])
+    console.log(saveMovies)
+    if(!(saveMovies.some(movie => movie.Title === movies[index].Title))){
+      saveMovies.push(movies[index]);
+    }
     localStorage.setItem('savedMovies', JSON.stringify(saveMovies));
     setMovieState({...movieState, savedMovies: saveMovies});
   }
 
   movieState.handleUnSaveMovie = (index) => {
-    let saveMovies = JSON.parse(JSON.stringify(movieState.savedMovies));
-    saveMovies.splice(index, 1);
-    localStorage.setItem('savedMovies', saveMovies);
+    let saveMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    if (saveMovies.length >= 2){
+      saveMovies.splice(index, 1);
+    }
+    else{
+      saveMovies = []
+    }
+    localStorage.setItem('savedMovies', JSON.stringify(saveMovies));
     setMovieState({...movieState, savedMovies: saveMovies});
   }
   
@@ -58,6 +70,7 @@ function App() {
     <MovieContext.Provider value={movieState}>
       <Search />
       <MovieCard />
+      <SavedMovies />
     </MovieContext.Provider>
   );
 }

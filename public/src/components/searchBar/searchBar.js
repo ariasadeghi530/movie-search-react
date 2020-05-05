@@ -6,6 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -18,14 +19,28 @@ const useStyles = makeStyles((theme) => ({
         },
        
     },
-    
+    container:{
+        paddingLeft: 0
+    },
+    header: {
+        textAlign: "center",
+        marginTop: '1%',
+        marginBottom: '1%'
+    },
+    result: {
+        textAlign: 'center'
+    }
 }));
 
 function Search() {
     const classes = useStyles()
-    const {handleInputChange, handleQueryMovies, search} = useContext(MovieContext);
+    const {handleInputChange, handleQueryMovies, search, query, queryMovies} = useContext(MovieContext);
     return (
-        <Container>
+        <Container
+        maxWidth="xl"
+        className={classes.container}
+        >
+            <Typography className={classes.header}variant="h5" component="h5">Hello, World! Welcome to Aria's Movie Searcher;</Typography>
         <form className={classes.root} noValidate autoComplete="off" 
         onSubmit={(e) => handleQueryMovies(e)}
         >
@@ -49,6 +64,7 @@ function Search() {
              />
              
         </form>
+        {queryMovies.length > 0 ? <Typography className={classes.result}>Showing {queryMovies.length} results for "{query}" </Typography> : <></>}
         </Container>
     )
 }
