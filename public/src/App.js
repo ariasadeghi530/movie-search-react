@@ -24,7 +24,7 @@ function App() {
   movieState.handleQueryMovies = (event) => {
     event.preventDefault();
   
-    axios.get(`http://www.omdbapi.com/?apikey=trilogy&s=${movieState.search}`)
+    axios.get(`https://www.omdbapi.com/?apikey=trilogy&s=${movieState.search}`)
     .then(function({data}){
       if(data.Response === 'True'){
         setMovieState({...movieState, query: movieState.search, search: '', queryMovies: data.Search});
